@@ -13,5 +13,6 @@ https://towardsdatascience.com/a-wizards-guide-to-adversarial-autoencoders-part-
 https://towardsdatascience.com/a-wizards-guide-to-adversarial-autoencoders-part-4-classify-mnist-using-1000-labels-2ca08071f95  
 https://arxiv.org/abs/1805.07702  
 https://www.biorxiv.org/content/early/2018/02/08/262501  
+https://www.ncbi.nlm.nih.gov/pubmed/29091775  
 
 
