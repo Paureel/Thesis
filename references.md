@@ -10,3 +10,9 @@
 
 # Tutorials
 
+| ﻿Name                                                                              | Description                                                       | Link                                                                                                       |
+|-----------------------------------------------------------------------------------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| Intro to Tensorflow                                                               | Introductionary course on Tensorflow.                             | https://www.coursera.org/learn/intro-tensorflow                                                            |
+| Understanding LSTM Networks                                                       | Intro on recurrent neural networks.                               | http://colah.github.io/posts/2015-08-Understanding-LSTMs/                                                  |
+| Keras LSTM tutorial – How to easily build a powerful deep learning language model | LSTM Keras tutorial                                               | https://adventuresinmachinelearning.com/keras-lstm-tutorial/                                               |
+| A wizard’s guide to Adversarial Autoencoders: Part 1-4                            | A tutorial on how autoencoders and adversarial autoencoders work. | https://towardsdatascience.com/a-wizards-guide-to-adversarial-autoencoders-part-1-autoencoder-d9a5f8795af4 |
