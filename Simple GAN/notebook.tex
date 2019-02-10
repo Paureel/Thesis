@@ -1,0 +1,2234 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{GAN\_exploration}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Main source:
+https://blog.paperspace.com/implementing-gans-in-tensorflow/
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+          \PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{examples}\PY{n+nn}{.}\PY{n+nn}{tutorials}\PY{n+nn}{.}\PY{n+nn}{mnist} \PY{k}{import} \PY{n}{input\PYZus{}data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{256}
+          \PY{n}{nd\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{10}
+          \PY{n}{ng\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{10}
+          
+          \PY{n}{X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Z} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{k}{def} \PY{n+nf}{sample\PYZus{}Z}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}dist}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}y}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mode}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{mode} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quadratic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{10} \PY{o}{+} \PY{n}{x}\PY{o}{*}\PY{n}{x}
+              \PY{k}{if} \PY{n}{mode} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{10} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{sample\PYZus{}data}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{mode} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quadratic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+              \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+              \PY{n}{x} \PY{o}{=} \PY{n}{scale}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random\PYZus{}sample}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{)}
+          
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{yi} \PY{o}{=} \PY{n}{get\PYZus{}y}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{mode}\PY{p}{)}
+                  \PY{n}{data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{yi}\PY{p}{]}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{generator}\PY{p}{(}\PY{n}{Z}\PY{p}{,}\PY{n}{hsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,}\PY{n}{reuse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+              \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GAN/Generator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{reuse}\PY{o}{=}\PY{n}{reuse}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{h1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{Z}\PY{p}{,}\PY{n}{hsize}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{leaky\PYZus{}relu}\PY{p}{)}
+                  \PY{n}{h2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{h1}\PY{p}{,}\PY{n}{hsize}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{leaky\PYZus{}relu}\PY{p}{)}
+                  \PY{n}{out\PYZus{}part} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{h2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{out\PYZus{}part}
+          
+          \PY{k}{def} \PY{n+nf}{discriminator}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{hsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,}\PY{n}{reuse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+              \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GAN/Discriminator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{reuse}\PY{o}{=}\PY{n}{reuse}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{h1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{hsize}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{leaky\PYZus{}relu}\PY{p}{)}
+                  \PY{n}{h2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{h1}\PY{p}{,}\PY{n}{hsize}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{leaky\PYZus{}relu}\PY{p}{)}
+                  \PY{n}{h3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{h2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                  \PY{n}{out\PYZus{}part} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{h3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{out\PYZus{}part}\PY{p}{,} \PY{n}{h3}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}177}]:} \PY{n}{G\PYZus{}sample} \PY{o}{=} \PY{n}{generator}\PY{p}{(}\PY{n}{Z}\PY{p}{)}
+          \PY{n}{r\PYZus{}logits}\PY{p}{,} \PY{n}{r\PYZus{}rep} \PY{o}{=} \PY{n}{discriminator}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+          \PY{n}{f\PYZus{}logits}\PY{p}{,} \PY{n}{g\PYZus{}rep} \PY{o}{=} \PY{n}{discriminator}\PY{p}{(}\PY{n}{G\PYZus{}sample}\PY{p}{,}\PY{n}{reuse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{c+c1}{\PYZsh{}disc\PYZus{}loss = tf.reduce\PYZus{}mean(tf.nn.sigmoid\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits(logits=r\PYZus{}logits,labels=tf.ones\PYZus{}like(r\PYZus{}logits)) + tf.nn.sigmoid\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits(logits=f\PYZus{}logits,labels=tf.zeros\PYZus{}like(f\PYZus{}logits)))}
+          \PY{c+c1}{\PYZsh{}gen\PYZus{}loss = tf.reduce\PYZus{}mean(tf.nn.sigmoid\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits(logits=f\PYZus{}logits,labels=tf.ones\PYZus{}like(f\PYZus{}logits)))}
+          \PY{n}{disc\PYZus{}loss} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{f\PYZus{}logits}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{r\PYZus{}logits}\PY{p}{)}
+          \PY{n}{gen\PYZus{}loss} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{f\PYZus{}logits}\PY{p}{)}
+          
+          \PY{n}{scale} \PY{o}{=} \PY{l+m+mf}{0.9}
+          \PY{n}{epsilon} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}uniform}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}
+          \PY{n}{x\PYZus{}hat} \PY{o}{=} \PY{n}{epsilon} \PY{o}{*} \PY{n}{X} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{epsilon}\PY{p}{)} \PY{o}{*}\PY{n}{G\PYZus{}sample}
+          \PY{n}{d\PYZus{}hat} \PY{o}{=} \PY{n}{discriminator}\PY{p}{(}\PY{n}{x\PYZus{}hat}\PY{p}{,} \PY{n}{reuse} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{ddx} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{gradients}\PY{p}{(}\PY{n}{d\PYZus{}hat}\PY{p}{,} \PY{n}{x\PYZus{}hat}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{ddx} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}sum}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{ddx}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ddx} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{ddx} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.0}\PY{p}{)} \PY{o}{*} \PY{n}{scale}\PY{p}{)}
+          
+          \PY{n}{disc\PYZus{}loss} \PY{o}{+}\PY{o}{=} \PY{n}{ddx}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{n}{gen\PYZus{}vars} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}collection}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{GraphKeys}\PY{o}{.}\PY{n}{GLOBAL\PYZus{}VARIABLES}\PY{p}{,}\PY{n}{scope}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GAN/Generator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{disc\PYZus{}vars} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}collection}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{GraphKeys}\PY{o}{.}\PY{n}{GLOBAL\PYZus{}VARIABLES}\PY{p}{,}\PY{n}{scope}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GAN/Discriminator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{gen\PYZus{}step} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{RMSPropOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{gen\PYZus{}loss}\PY{p}{,}\PY{n}{var\PYZus{}list} \PY{o}{=} \PY{n}{gen\PYZus{}vars}\PY{p}{)} \PY{c+c1}{\PYZsh{} G Train step}
+          \PY{n}{disc\PYZus{}step} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{RMSPropOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{disc\PYZus{}loss}\PY{p}{,}\PY{n}{var\PYZus{}list} \PY{o}{=} \PY{n}{disc\PYZus{}vars}\PY{p}{)} \PY{c+c1}{\PYZsh{} D Train step}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{n}{mode} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quadratic}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)}
+          \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{session}\PY{o}{=}\PY{n}{sess}\PY{p}{)}
+          \PY{n}{x\PYZus{}plot} \PY{o}{=} \PY{n}{sample\PYZus{}data}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{mode} \PY{o}{=} \PY{n}{mode}\PY{p}{)}
+          
+          \PY{n}{dloss\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{gloss\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100000}\PY{p}{)}\PY{p}{:}
+              \PY{n}{X\PYZus{}batch} \PY{o}{=} \PY{n}{sample\PYZus{}data}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{mode} \PY{o}{=} \PY{n}{mode}\PY{p}{)}
+              \PY{n}{Z\PYZus{}batch} \PY{o}{=} \PY{n}{sample\PYZus{}Z}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{dloss} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{disc\PYZus{}step}\PY{p}{,} \PY{n}{disc\PYZus{}loss}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{X\PYZus{}batch}\PY{p}{,} \PY{n}{Z}\PY{p}{:} \PY{n}{Z\PYZus{}batch}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{gloss} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{gen\PYZus{}step}\PY{p}{,} \PY{n}{gen\PYZus{}loss}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{Z}\PY{p}{:} \PY{n}{Z\PYZus{}batch}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{1000} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iterations: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{ Discriminator loss: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{ Generator loss: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{dloss}\PY{p}{,}\PY{n}{gloss}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{dloss\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dloss}\PY{p}{)}
+                  \PY{n}{gloss\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gloss}\PY{p}{)}
+              \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{5000} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}  
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{g\PYZus{}plot} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{G\PYZus{}sample}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{Z}\PY{p}{:} \PY{n}{Z\PYZus{}batch}\PY{p}{\PYZcb{}}\PY{p}{)}
+                  \PY{n}{xax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x\PYZus{}plot}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}plot}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{gax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{g\PYZus{}plot}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g\PYZus{}plot}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{xax}\PY{p}{,}\PY{n}{gax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Generated Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Samples at Iteration }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{i})
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../plots/iterations/iteration\PYZus{}\PYZpc{}d.png\PYZsq{}\PYZpc{}i)}
+                  \PY{c+c1}{\PYZsh{}plt.close()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iterations: 0	 Discriminator loss: -11.6977	 Generator loss: -0.0331
+Iterations: 1000	 Discriminator loss: 25.4596	 Generator loss: -2082.7129
+Iterations: 2000	 Discriminator loss: -137.7386	 Generator loss: -889.5665
+Iterations: 3000	 Discriminator loss: -811.5773	 Generator loss: 1220.5859
+Iterations: 4000	 Discriminator loss: -3343.8643	 Generator loss: -50804.2070
+Iterations: 5000	 Discriminator loss: 691.3851	 Generator loss: 3358.8145
+Iterations: 6000	 Discriminator loss: -1031.6541	 Generator loss: 8558.3457
+Iterations: 7000	 Discriminator loss: 671.1242	 Generator loss: 31959.6367
+Iterations: 8000	 Discriminator loss: -3657.3828	 Generator loss: -80150.9688
+Iterations: 9000	 Discriminator loss: -149.4520	 Generator loss: -66783.7734
+Iterations: 10000	 Discriminator loss: 1367.1718	 Generator loss: -23741.5000
+Iterations: 11000	 Discriminator loss: 3957.6987	 Generator loss: 18612.4609
+Iterations: 12000	 Discriminator loss: 714.5751	 Generator loss: -23151.2891
+Iterations: 13000	 Discriminator loss: -4526.6987	 Generator loss: 128284.7656
+Iterations: 14000	 Discriminator loss: -17131.2734	 Generator loss: -158057.0000
+Iterations: 15000	 Discriminator loss: 7539.4346	 Generator loss: 36157.0391
+Iterations: 16000	 Discriminator loss: 15673.4287	 Generator loss: -107782.7109
+Iterations: 17000	 Discriminator loss: 4411.2114	 Generator loss: -6368.7856
+Iterations: 18000	 Discriminator loss: -723.9730	 Generator loss: -8148.9990
+Iterations: 19000	 Discriminator loss: -9168.9316	 Generator loss: -108868.4844
+Iterations: 20000	 Discriminator loss: -4225.1782	 Generator loss: -188188.0000
+Iterations: 21000	 Discriminator loss: -982.7468	 Generator loss: -70172.2969
+Iterations: 22000	 Discriminator loss: 1289.7783	 Generator loss: -6572.2983
+Iterations: 23000	 Discriminator loss: 8841.4141	 Generator loss: 73265.1406
+Iterations: 24000	 Discriminator loss: 10185.4941	 Generator loss: 187005.7344
+Iterations: 25000	 Discriminator loss: 177.6270	 Generator loss: -34443.4648
+Iterations: 26000	 Discriminator loss: 56496.9062	 Generator loss: -216434.1719
+Iterations: 27000	 Discriminator loss: -39548.1484	 Generator loss: 328294.0000
+Iterations: 28000	 Discriminator loss: 38575.7461	 Generator loss: 85594.0625
+Iterations: 29000	 Discriminator loss: 7647.9448	 Generator loss: 34702.7578
+Iterations: 30000	 Discriminator loss: 6352.3237	 Generator loss: -65660.7344
+Iterations: 31000	 Discriminator loss: -13683.8076	 Generator loss: 299913.7188
+Iterations: 32000	 Discriminator loss: -439.2075	 Generator loss: -41963.4922
+Iterations: 33000	 Discriminator loss: 3144.9895	 Generator loss: -99240.8750
+Iterations: 34000	 Discriminator loss: 1378.3573	 Generator loss: 18341.6836
+Iterations: 35000	 Discriminator loss: -15151.6494	 Generator loss: -50743.2656
+Iterations: 36000	 Discriminator loss: 7715.1714	 Generator loss: -31663.5234
+Iterations: 37000	 Discriminator loss: -20026.5332	 Generator loss: -145533.6250
+Iterations: 38000	 Discriminator loss: -20182.8828	 Generator loss: -96472.2812
+Iterations: 39000	 Discriminator loss: -7497.0137	 Generator loss: -66965.2500
+Iterations: 40000	 Discriminator loss: -29946.8086	 Generator loss: 278742.2812
+Iterations: 41000	 Discriminator loss: 30542.5879	 Generator loss: 250811.5625
+Iterations: 42000	 Discriminator loss: -10680.3057	 Generator loss: -133605.5625
+Iterations: 43000	 Discriminator loss: 11468.0293	 Generator loss: -58650.7305
+Iterations: 44000	 Discriminator loss: -11710.2852	 Generator loss: -88931.6875
+Iterations: 45000	 Discriminator loss: 3900.7554	 Generator loss: 7639.3472
+Iterations: 46000	 Discriminator loss: -18275.8184	 Generator loss: 181769.0000
+Iterations: 47000	 Discriminator loss: -3405.4365	 Generator loss: -88112.1172
+Iterations: 48000	 Discriminator loss: -20327.6348	 Generator loss: 45388.6562
+Iterations: 49000	 Discriminator loss: 734.1865	 Generator loss: -43676.2930
+Iterations: 50000	 Discriminator loss: 5415.1675	 Generator loss: 13472.3223
+Iterations: 51000	 Discriminator loss: -9382.1309	 Generator loss: -122336.1172
+Iterations: 52000	 Discriminator loss: -15936.1377	 Generator loss: -176890.0312
+Iterations: 53000	 Discriminator loss: 3846.6357	 Generator loss: -20165.9355
+Iterations: 54000	 Discriminator loss: 31958.8945	 Generator loss: -117586.1328
+Iterations: 55000	 Discriminator loss: 12109.9785	 Generator loss: -50864.7812
+Iterations: 56000	 Discriminator loss: -2533.8018	 Generator loss: -51012.1367
+Iterations: 57000	 Discriminator loss: 1165.8269	 Generator loss: 183600.5625
+Iterations: 58000	 Discriminator loss: 44959.6523	 Generator loss: 37605.3711
+Iterations: 59000	 Discriminator loss: 65776.7891	 Generator loss: -112565.9375
+Iterations: 60000	 Discriminator loss: 4727.0342	 Generator loss: 83040.4844
+Iterations: 61000	 Discriminator loss: -14030.9238	 Generator loss: 183021.0000
+Iterations: 62000	 Discriminator loss: 29187.0000	 Generator loss: -137354.4375
+Iterations: 63000	 Discriminator loss: -8857.1982	 Generator loss: -137979.8281
+Iterations: 64000	 Discriminator loss: 20756.4961	 Generator loss: 16003.5352
+Iterations: 65000	 Discriminator loss: 12260.6396	 Generator loss: -81475.4062
+Iterations: 66000	 Discriminator loss: 8113.5532	 Generator loss: 92204.1562
+Iterations: 67000	 Discriminator loss: -12255.3896	 Generator loss: -2864.6519
+Iterations: 68000	 Discriminator loss: -9354.2256	 Generator loss: -721.7231
+Iterations: 69000	 Discriminator loss: -36625.2148	 Generator loss: 294113.2500
+Iterations: 70000	 Discriminator loss: 25219.4199	 Generator loss: 219805.4062
+Iterations: 71000	 Discriminator loss: -20153.1426	 Generator loss: 255670.0312
+Iterations: 72000	 Discriminator loss: 17319.3301	 Generator loss: -185964.6250
+Iterations: 73000	 Discriminator loss: -10509.8066	 Generator loss: -114736.6875
+Iterations: 74000	 Discriminator loss: -13309.0781	 Generator loss: 55719.8477
+Iterations: 75000	 Discriminator loss: 790.9760	 Generator loss: -23580.0547
+Iterations: 76000	 Discriminator loss: -2827.0994	 Generator loss: 8117.7505
+Iterations: 77000	 Discriminator loss: -19840.9512	 Generator loss: -194864.9844
+Iterations: 78000	 Discriminator loss: -2539.3677	 Generator loss: 254859.7969
+Iterations: 79000	 Discriminator loss: 4175.2988	 Generator loss: -211431.8438
+Iterations: 80000	 Discriminator loss: 19397.2812	 Generator loss: 75033.5078
+Iterations: 81000	 Discriminator loss: 40415.7578	 Generator loss: 95488.8438
+Iterations: 82000	 Discriminator loss: -14457.4004	 Generator loss: 154385.4844
+Iterations: 83000	 Discriminator loss: 49009.4648	 Generator loss: 122644.2969
+Iterations: 84000	 Discriminator loss: -53431.8516	 Generator loss: -354513.5000
+Iterations: 85000	 Discriminator loss: -1359.6821	 Generator loss: -102355.0312
+Iterations: 86000	 Discriminator loss: 8318.8193	 Generator loss: -138440.1250
+Iterations: 87000	 Discriminator loss: -8814.0918	 Generator loss: -136772.3594
+Iterations: 88000	 Discriminator loss: 32046.7344	 Generator loss: -135363.6406
+Iterations: 89000	 Discriminator loss: -73827.5469	 Generator loss: 512508.9062
+Iterations: 90000	 Discriminator loss: 20616.5977	 Generator loss: -251076.1562
+Iterations: 91000	 Discriminator loss: 58802.8398	 Generator loss: 88727.2812
+Iterations: 92000	 Discriminator loss: 26064.0938	 Generator loss: -46322.0391
+Iterations: 93000	 Discriminator loss: -36731.9062	 Generator loss: -94940.0078
+Iterations: 94000	 Discriminator loss: -7037.1675	 Generator loss: -347758.8750
+Iterations: 95000	 Discriminator loss: 3286.0852	 Generator loss: -567.2402
+Iterations: 96000	 Discriminator loss: -21525.6348	 Generator loss: 184329.9844
+Iterations: 97000	 Discriminator loss: -31833.3242	 Generator loss: -52551.2344
+Iterations: 98000	 Discriminator loss: 14348.5283	 Generator loss: 68169.0938
+Iterations: 99000	 Discriminator loss: 8649.4141	 Generator loss: -65423.5039
+Iterations: 100000	 Discriminator loss: -7863.4448	 Generator loss: 181768.8594
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}pyplot.py:514: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max\_open\_warning`).
+  max\_open\_warning, RuntimeWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iterations: 101000	 Discriminator loss: 300390.3125	 Generator loss: -788139.8750
+Iterations: 102000	 Discriminator loss: -5651.6665	 Generator loss: -51579.7109
+Iterations: 103000	 Discriminator loss: -1932.0311	 Generator loss: -201119.5312
+Iterations: 104000	 Discriminator loss: -3204.4954	 Generator loss: 166398.3750
+Iterations: 105000	 Discriminator loss: 1334.7273	 Generator loss: 161932.0000
+Iterations: 106000	 Discriminator loss: 11356.7461	 Generator loss: -24260.8984
+Iterations: 107000	 Discriminator loss: 13941.4062	 Generator loss: -166532.4375
+Iterations: 108000	 Discriminator loss: 33556.6211	 Generator loss: -101943.0781
+Iterations: 109000	 Discriminator loss: 37836.0664	 Generator loss: -365008.8125
+Iterations: 110000	 Discriminator loss: -61160.6328	 Generator loss: 447115.6250
+Iterations: 111000	 Discriminator loss: -3079.7673	 Generator loss: -203743.2188
+Iterations: 112000	 Discriminator loss: -9772.4570	 Generator loss: 151458.0781
+Iterations: 113000	 Discriminator loss: -14395.0898	 Generator loss: 110578.1250
+Iterations: 114000	 Discriminator loss: 696.9144	 Generator loss: -48596.1562
+Iterations: 115000	 Discriminator loss: -80483.5469	 Generator loss: 435000.3750
+Iterations: 116000	 Discriminator loss: 50505.7109	 Generator loss: -191927.3438
+Iterations: 117000	 Discriminator loss: -9676.6641	 Generator loss: 30864.8535
+Iterations: 118000	 Discriminator loss: -27141.2520	 Generator loss: -175797.6875
+Iterations: 119000	 Discriminator loss: 47483.1250	 Generator loss: 148481.5781
+Iterations: 120000	 Discriminator loss: 149.7115	 Generator loss: -214616.1562
+Iterations: 121000	 Discriminator loss: -797.1098	 Generator loss: -316137.3750
+Iterations: 122000	 Discriminator loss: 43004.7266	 Generator loss: 11138.2734
+Iterations: 123000	 Discriminator loss: -37651.6836	 Generator loss: -596571.0000
+Iterations: 124000	 Discriminator loss: -31045.2266	 Generator loss: -31008.5898
+Iterations: 125000	 Discriminator loss: 946.7418	 Generator loss: 139516.7188
+Iterations: 126000	 Discriminator loss: 21132.9531	 Generator loss: -40004.0664
+Iterations: 127000	 Discriminator loss: 56864.8672	 Generator loss: 214991.8594
+Iterations: 128000	 Discriminator loss: -21365.5332	 Generator loss: -276408.8125
+Iterations: 129000	 Discriminator loss: -17910.7402	 Generator loss: 40163.6289
+Iterations: 130000	 Discriminator loss: -12143.3965	 Generator loss: -312849.8750
+Iterations: 131000	 Discriminator loss: 23571.0273	 Generator loss: -154396.6562
+Iterations: 132000	 Discriminator loss: 70170.2891	 Generator loss: 284684.4688
+Iterations: 133000	 Discriminator loss: -16506.6230	 Generator loss: -295605.6250
+Iterations: 134000	 Discriminator loss: 3984.2373	 Generator loss: -51113.9805
+Iterations: 135000	 Discriminator loss: -16677.5039	 Generator loss: 203220.6562
+Iterations: 136000	 Discriminator loss: -12985.0283	 Generator loss: 78955.0469
+Iterations: 137000	 Discriminator loss: -12416.0391	 Generator loss: 321503.6875
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-180-55401a9052ff> in <module>
+         10     Z\_batch = sample\_Z(batch\_size, 2)
+         11     \_, dloss = sess.run([disc\_step, disc\_loss], feed\_dict=\{X: X\_batch, Z: Z\_batch\})
+    ---> 12     \_, gloss = sess.run([gen\_step, gen\_loss], feed\_dict=\{Z: Z\_batch\})
+         13     if (i \% 1000 == 0):
+         14         print("Iterations: \%d\textbackslash{}t Discriminator loss: \%.4f\textbackslash{}t Generator loss: \%.4f"\%(i,dloss,gloss))
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in run(self, fetches, feed\_dict, options, run\_metadata)
+        927     try:
+        928       result = self.\_run(None, fetches, feed\_dict, options\_ptr,
+    --> 929                          run\_metadata\_ptr)
+        930       if run\_metadata:
+        931         proto\_data = tf\_session.TF\_GetBuffer(run\_metadata\_ptr)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_run(self, handle, fetches, feed\_dict, options, run\_metadata)
+       1150     if final\_fetches or final\_targets or (handle and feed\_dict\_tensor):
+       1151       results = self.\_do\_run(handle, final\_targets, final\_fetches,
+    -> 1152                              feed\_dict\_tensor, options, run\_metadata)
+       1153     else:
+       1154       results = []
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_do\_run(self, handle, target\_list, fetch\_list, feed\_dict, options, run\_metadata)
+       1326     if handle is None:
+       1327       return self.\_do\_call(\_run\_fn, feeds, fetches, targets, options,
+    -> 1328                            run\_metadata)
+       1329     else:
+       1330       return self.\_do\_call(\_prun\_fn, handle, feeds, fetches)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_do\_call(self, fn, *args)
+       1332   def \_do\_call(self, fn, *args):
+       1333     try:
+    -> 1334       return fn(*args)
+       1335     except errors.OpError as e:
+       1336       message = compat.as\_text(e.message)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_run\_fn(feed\_dict, fetch\_list, target\_list, options, run\_metadata)
+       1317       self.\_extend\_graph()
+       1318       return self.\_call\_tf\_sessionrun(
+    -> 1319           options, feed\_dict, fetch\_list, target\_list, run\_metadata)
+       1320 
+       1321     def \_prun\_fn(handle, feed\_dict, fetch\_list):
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_call\_tf\_sessionrun(self, options, feed\_dict, fetch\_list, target\_list, run\_metadata)
+       1405     return tf\_session.TF\_SessionRun\_wrapper(
+       1406         self.\_session, options, feed\_dict, fetch\_list, target\_list,
+    -> 1407         run\_metadata)
+       1408 
+       1409   def \_call\_tf\_sessionprun(self, handle, feed\_dict, fetch\_list):
+    
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dloss\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{dloss\PYZus{}list}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{gloss\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{gloss\PYZus{}list}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:1: RuntimeWarning: invalid value encountered in log
+  """Entry point for launching an IPython kernel.
+C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:2: RuntimeWarning: invalid value encountered in log
+  
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{sampled\PYZus{}quad} \PY{o}{=} \PY{n}{sample\PYZus{}data}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{sampled\PYZus{}sin} \PY{o}{=} \PY{n}{sample\PYZus{}data}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{mode} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{plot\PYZus{}dist}\PY{p}{(}\PY{n}{sampled\PYZus{}quad}\PY{p}{)}
+        \PY{n}{plot\PYZus{}dist}\PY{p}{(}\PY{n}{sampled\PYZus{}sin}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{mnist}{%
+\section{MNIST}\label{mnist}}
+
+https://towardsdatascience.com/implementing-a-generative-adversarial-network-gan-dcgan-to-draw-human-faces-8291616904a
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{mnist} \PY{o}{=} \PY{n}{input\PYZus{}data}\PY{o}{.}\PY{n}{read\PYZus{}data\PYZus{}sets}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MNIST\PYZus{}data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From <ipython-input-183-b8fd4c8de6c9>:1: read\_data\_sets (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use alternatives such as official/mnist/dataset.py from tensorflow/models.
+WARNING:tensorflow:From C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}contrib\textbackslash{}learn\textbackslash{}python\textbackslash{}learn\textbackslash{}datasets\textbackslash{}mnist.py:260: maybe\_download (from tensorflow.contrib.learn.python.learn.datasets.base) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please write your own downloading logic.
+WARNING:tensorflow:From C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}contrib\textbackslash{}learn\textbackslash{}python\textbackslash{}learn\textbackslash{}datasets\textbackslash{}base.py:252: \_internal\_retry.<locals>.wrap.<locals>.wrapped\_fn (from tensorflow.contrib.learn.python.learn.datasets.base) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use urllib or similar directly.
+Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
+WARNING:tensorflow:From C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}contrib\textbackslash{}learn\textbackslash{}python\textbackslash{}learn\textbackslash{}datasets\textbackslash{}mnist.py:262: extract\_images (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.data to implement this functionality.
+Extracting MNIST\_data\textbackslash{}train-images-idx3-ubyte.gz
+Successfully downloaded train-labels-idx1-ubyte.gz 28881 bytes.
+WARNING:tensorflow:From C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}contrib\textbackslash{}learn\textbackslash{}python\textbackslash{}learn\textbackslash{}datasets\textbackslash{}mnist.py:267: extract\_labels (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.data to implement this functionality.
+Extracting MNIST\_data\textbackslash{}train-labels-idx1-ubyte.gz
+Successfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes.
+Extracting MNIST\_data\textbackslash{}t10k-images-idx3-ubyte.gz
+Successfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes.
+Extracting MNIST\_data\textbackslash{}t10k-labels-idx1-ubyte.gz
+WARNING:tensorflow:From C:\textbackslash{}Users\textbackslash{}AurelProsz\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}contrib\textbackslash{}learn\textbackslash{}python\textbackslash{}learn\textbackslash{}datasets\textbackslash{}mnist.py:290: DataSet.\_\_init\_\_ (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use alternatives such as official/mnist/dataset.py from tensorflow/models.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+          \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{n\PYZus{}noise} \PY{o}{=} \PY{l+m+mi}{64}
+          
+          \PY{n}{X\PYZus{}in} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{noise} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}noise}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keep\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{is\PYZus{}training} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{bool}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}training}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{k}{def} \PY{n+nf}{montage}\PY{p}{(}\PY{n}{images}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{images} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{images}\PY{p}{)}
+              \PY{n}{img\PYZus{}h} \PY{o}{=} \PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{img\PYZus{}w} \PY{o}{=} \PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{n\PYZus{}plots} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{n\PYZus{}plots} \PY{o}{+} \PY{n}{n\PYZus{}plots} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{*} \PY{n}{n\PYZus{}plots} \PY{o}{+} \PY{n}{n\PYZus{}plots} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.5}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}plots}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}plots}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{this\PYZus{}filter} \PY{o}{=} \PY{n}{i} \PY{o}{*} \PY{n}{n\PYZus{}plots} \PY{o}{+} \PY{n}{j}
+                      \PY{k}{if} \PY{n}{this\PYZus{}filter} \PY{o}{\PYZlt{}} \PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                          \PY{n}{this\PYZus{}img} \PY{o}{=} \PY{n}{images}\PY{p}{[}\PY{n}{this\PYZus{}filter}\PY{p}{]}
+                          \PY{n}{m}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{i} \PY{o}{+} \PY{n}{i} \PY{o}{*} \PY{n}{img\PYZus{}h}\PY{p}{:}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{i} \PY{o}{+} \PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{img\PYZus{}h}\PY{p}{,}
+                            \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{j} \PY{o}{+} \PY{n}{j} \PY{o}{*} \PY{n}{img\PYZus{}w}\PY{p}{:}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{j} \PY{o}{+} \PY{p}{(}\PY{n}{j} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{img\PYZus{}w}\PY{p}{]} \PY{o}{=} \PY{n}{this\PYZus{}img}
+              \PY{k}{return} \PY{n}{m}
+          
+          \PY{k}{def} \PY{n+nf}{lrelu}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{tf}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{binary\PYZus{}cross\PYZus{}entropy}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{p}{:}
+              \PY{n}{eps} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}12}
+              \PY{k}{return} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x} \PY{o}{*} \PY{n}{tf}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{z} \PY{o}{+} \PY{n}{eps}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{*} \PY{n}{tf}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{z} \PY{o}{+} \PY{n}{eps}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{discriminator}\PY{p}{(}\PY{n}{img\PYZus{}in}\PY{p}{,} \PY{n}{reuse}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{o}{=}\PY{n}{keep\PYZus{}prob}\PY{p}{)}\PY{p}{:}
+              \PY{n}{activation} \PY{o}{=} \PY{n}{lrelu}
+              \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{discriminator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{reuse}\PY{o}{=}\PY{n}{reuse}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{img\PYZus{}in}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{units}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{units}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{x}
+              
+          \PY{k}{def} \PY{n+nf}{generator}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{o}{=}\PY{n}{keep\PYZus{}prob}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{o}{=}\PY{n}{is\PYZus{}training}\PY{p}{)}\PY{p}{:}
+              \PY{n}{activation} \PY{o}{=} \PY{n}{lrelu}
+              \PY{n}{momentum} \PY{o}{=} \PY{l+m+mf}{0.99}
+              \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{reuse}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{z}
+                  \PY{n}{d1} \PY{o}{=} \PY{l+m+mi}{4}
+                  \PY{n}{d2} \PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{units}\PY{o}{=}\PY{n}{d1} \PY{o}{*} \PY{n}{d1} \PY{o}{*} \PY{n}{d2}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}      
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{batch\PYZus{}norm}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{o}{=}\PY{n}{is\PYZus{}training}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{n}{momentum}\PY{p}{)}  
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d1}\PY{p}{,} \PY{n}{d1}\PY{p}{,} \PY{n}{d2}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{image}\PY{o}{.}\PY{n}{resize\PYZus{}images}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d\PYZus{}transpose}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{batch\PYZus{}norm}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{o}{=}\PY{n}{is\PYZus{}training}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{n}{momentum}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d\PYZus{}transpose}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{batch\PYZus{}norm}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{o}{=}\PY{n}{is\PYZus{}training}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{n}{momentum}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d\PYZus{}transpose}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{batch\PYZus{}norm}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{o}{=}\PY{n}{is\PYZus{}training}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{n}{momentum}\PY{p}{)}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{conv2d\PYZus{}transpose}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n}{g} \PY{o}{=} \PY{n}{generator}\PY{p}{(}\PY{n}{noise}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{p}{)}
+          \PY{n}{d\PYZus{}real} \PY{o}{=} \PY{n}{discriminator}\PY{p}{(}\PY{n}{X\PYZus{}in}\PY{p}{)}
+          \PY{n}{d\PYZus{}fake} \PY{o}{=} \PY{n}{discriminator}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{reuse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{vars\PYZus{}g} \PY{o}{=} \PY{p}{[}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{tf}\PY{o}{.}\PY{n}{trainable\PYZus{}variables}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{var}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{vars\PYZus{}d} \PY{o}{=} \PY{p}{[}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{tf}\PY{o}{.}\PY{n}{trainable\PYZus{}variables}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{var}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{discriminator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+          
+          
+          \PY{n}{d\PYZus{}reg} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{apply\PYZus{}regularization}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{l2\PYZus{}regularizer}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}\PY{p}{,} \PY{n}{vars\PYZus{}d}\PY{p}{)}
+          \PY{n}{g\PYZus{}reg} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{apply\PYZus{}regularization}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{l2\PYZus{}regularizer}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}\PY{p}{,} \PY{n}{vars\PYZus{}g}\PY{p}{)}
+          
+          \PY{n}{loss\PYZus{}d\PYZus{}real} \PY{o}{=} \PY{n}{binary\PYZus{}cross\PYZus{}entropy}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{ones\PYZus{}like}\PY{p}{(}\PY{n}{d\PYZus{}real}\PY{p}{)}\PY{p}{,} \PY{n}{d\PYZus{}real}\PY{p}{)}
+          \PY{n}{loss\PYZus{}d\PYZus{}fake} \PY{o}{=} \PY{n}{binary\PYZus{}cross\PYZus{}entropy}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{d\PYZus{}fake}\PY{p}{)}\PY{p}{,} \PY{n}{d\PYZus{}fake}\PY{p}{)}
+          \PY{n}{loss\PYZus{}g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{binary\PYZus{}cross\PYZus{}entropy}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{ones\PYZus{}like}\PY{p}{(}\PY{n}{d\PYZus{}fake}\PY{p}{)}\PY{p}{,} \PY{n}{d\PYZus{}fake}\PY{p}{)}\PY{p}{)}
+          \PY{n}{loss\PYZus{}d} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{p}{(}\PY{n}{loss\PYZus{}d\PYZus{}real} \PY{o}{+} \PY{n}{loss\PYZus{}d\PYZus{}fake}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{update\PYZus{}ops} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}collection}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{GraphKeys}\PY{o}{.}\PY{n}{UPDATE\PYZus{}OPS}\PY{p}{)}
+          \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{control\PYZus{}dependencies}\PY{p}{(}\PY{n}{update\PYZus{}ops}\PY{p}{)}\PY{p}{:}
+              \PY{n}{optimizer\PYZus{}d} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{RMSPropOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.00015}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss\PYZus{}d} \PY{o}{+} \PY{n}{d\PYZus{}reg}\PY{p}{,} \PY{n}{var\PYZus{}list}\PY{o}{=}\PY{n}{vars\PYZus{}d}\PY{p}{)}
+              \PY{n}{optimizer\PYZus{}g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{RMSPropOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.00015}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss\PYZus{}g} \PY{o}{+} \PY{n}{g\PYZus{}reg}\PY{p}{,} \PY{n}{var\PYZus{}list}\PY{o}{=}\PY{n}{vars\PYZus{}g}\PY{p}{)}
+              
+              
+          \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{60000}\PY{p}{)}\PY{p}{:}
+              \PY{n}{train\PYZus{}d} \PY{o}{=} \PY{k+kc}{True}
+              \PY{n}{train\PYZus{}g} \PY{o}{=} \PY{k+kc}{True}
+              \PY{n}{keep\PYZus{}prob\PYZus{}train} \PY{o}{=} \PY{l+m+mf}{0.6} \PY{c+c1}{\PYZsh{} 0.5}
+              
+              
+              \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{p}{[}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}noise}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}   
+              \PY{n}{batch} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{mnist}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{next\PYZus{}batch}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}  
+              
+              \PY{n}{d\PYZus{}real\PYZus{}ls}\PY{p}{,} \PY{n}{d\PYZus{}fake\PYZus{}ls}\PY{p}{,} \PY{n}{g\PYZus{}ls}\PY{p}{,} \PY{n}{d\PYZus{}ls} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{loss\PYZus{}d\PYZus{}real}\PY{p}{,} \PY{n}{loss\PYZus{}d\PYZus{}fake}\PY{p}{,} \PY{n}{loss\PYZus{}g}\PY{p}{,} \PY{n}{loss\PYZus{}d}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X\PYZus{}in}\PY{p}{:} \PY{n}{batch}\PY{p}{,} \PY{n}{noise}\PY{p}{:} \PY{n}{n}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{n}{keep\PYZus{}prob\PYZus{}train}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}
+              
+              \PY{n}{d\PYZus{}real\PYZus{}ls} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{d\PYZus{}real\PYZus{}ls}\PY{p}{)}
+              \PY{n}{d\PYZus{}fake\PYZus{}ls} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{d\PYZus{}fake\PYZus{}ls}\PY{p}{)}
+              \PY{n}{g\PYZus{}ls} \PY{o}{=} \PY{n}{g\PYZus{}ls}
+              \PY{n}{d\PYZus{}ls} \PY{o}{=} \PY{n}{d\PYZus{}ls}
+              
+              \PY{k}{if} \PY{n}{g\PYZus{}ls} \PY{o}{*} \PY{l+m+mf}{1.5} \PY{o}{\PYZlt{}} \PY{n}{d\PYZus{}ls}\PY{p}{:}
+                  \PY{n}{train\PYZus{}g} \PY{o}{=} \PY{k+kc}{False}
+                  \PY{k}{pass}
+              \PY{k}{if} \PY{n}{d\PYZus{}ls} \PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZlt{}} \PY{n}{g\PYZus{}ls}\PY{p}{:}
+                  \PY{n}{train\PYZus{}d} \PY{o}{=} \PY{k+kc}{False}
+                  \PY{k}{pass}
+              
+              \PY{k}{if} \PY{n}{train\PYZus{}d}\PY{p}{:}
+                  \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{optimizer\PYZus{}d}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{noise}\PY{p}{:} \PY{n}{n}\PY{p}{,} \PY{n}{X\PYZus{}in}\PY{p}{:} \PY{n}{batch}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{n}{keep\PYZus{}prob\PYZus{}train}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}
+                  
+                  
+              \PY{k}{if} \PY{n}{train\PYZus{}g}\PY{p}{:}
+                  \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{optimizer\PYZus{}g}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{noise}\PY{p}{:} \PY{n}{n}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{n}{keep\PYZus{}prob\PYZus{}train}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}
+                  
+                  
+              \PY{k}{if} \PY{o+ow}{not} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50}\PY{p}{:}
+                  \PY{n+nb}{print} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{d\PYZus{}ls}\PY{p}{,} \PY{n}{g\PYZus{}ls}\PY{p}{,} \PY{n}{d\PYZus{}real\PYZus{}ls}\PY{p}{,} \PY{n}{d\PYZus{}fake\PYZus{}ls}\PY{p}{)}
+                  \PY{k}{if} \PY{o+ow}{not} \PY{n}{train\PYZus{}g}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{not training generator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{if} \PY{o+ow}{not} \PY{n}{train\PYZus{}d}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{not training discriminator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{gen\PYZus{}img} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{feed\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{noise}\PY{p}{:} \PY{n}{n}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{is\PYZus{}training}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}
+                  \PY{n}{imgs} \PY{o}{=} \PY{p}{[}\PY{n}{img}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{img} \PY{o+ow}{in} \PY{n}{gen\PYZus{}img}\PY{p}{]}
+                  \PY{n}{m} \PY{o}{=} \PY{n}{montage}\PY{p}{(}\PY{n}{imgs}\PY{p}{)}
+                  \PY{n}{gen\PYZus{}img} \PY{o}{=} \PY{n}{m}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{gen\PYZus{}img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 0.69675606 0.6923754 0.69950384 0.6940083
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+50 0.67802024 0.7365409 0.7044084 0.6516321
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+100 0.5603163 1.1068404 0.7163919 0.40424082
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+150 0.48792928 1.0972924 0.5444194 0.4314392
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+200 0.49331212 1.20266 0.6026502 0.38397402
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+250 0.5531971 1.2166901 0.7076124 0.3987819
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+300 0.6515411 1.3464389 0.9223637 0.38071865
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+350 0.58910334 1.3606994 0.8069674 0.37123933
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+400 0.58303446 1.1688175 0.75479275 0.41127616
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+450 0.530112 0.8289112 0.45207754 0.6081466
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+500 0.514081 0.75615716 0.37610304 0.65205896
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+550 0.5471634 1.1920203 0.7027133 0.39161366
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+600 0.77298415 1.8923066 1.3746502 0.17131805
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+650 0.5750808 1.2568834 0.7959426 0.35421902
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+700 0.7321048 1.6022835 1.2319607 0.23224896
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+750 0.4862601 0.959285 0.45807302 0.5144471
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+800 0.684682 1.6868539 1.1559752 0.2133888
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+850 0.6857034 1.5216985 1.1126673 0.2587395
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+900 0.6106441 1.0899724 0.760435 0.46085328
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+950 0.63618326 1.429122 0.97287023 0.2994963
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1000 0.5611982 1.3186371 0.78530335 0.33709294
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1050 0.6704036 1.4595566 1.0596352 0.28117198
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1100 0.65762174 1.4315376 1.0211477 0.2940958
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1150 0.5609032 1.2470784 0.75977683 0.36202955
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1200 0.5451401 1.2141411 0.6924297 0.39785042
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1250 0.61015534 1.2009001 0.8110877 0.4092229
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1300 0.6692132 1.585408 1.0886934 0.24973303
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1350 0.53737026 1.3435287 0.74424356 0.33049697
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_55.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1400 0.5408072 1.3728671 0.7650418 0.31657255
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_57.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1450 0.5495085 1.1370173 0.67392373 0.4250933
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_59.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1500 0.6075282 0.5696062 0.27860352 0.93645287
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_61.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1550 0.59010226 1.3840361 0.85711193 0.32309258
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_63.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1600 0.55510587 1.2028725 0.71214426 0.39806744
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_65.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1650 0.5466575 1.2162873 0.7094154 0.38389963
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_67.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1700 0.5405295 1.1167681 0.6494918 0.4315672
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_69.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1750 0.61916345 1.3614925 0.9049604 0.3333665
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_71.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1800 0.59521496 1.2636939 0.8218275 0.36860242
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_73.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1850 0.5867275 1.2182858 0.78874236 0.38471264
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_75.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1900 0.5793673 1.2310233 0.77443653 0.384298
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_77.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+1950 0.50834143 1.2205427 0.607525 0.40915778
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_79.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2000 0.60826176 1.2259189 0.8192263 0.3972972
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_81.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2050 0.5719372 1.3446833 0.80935585 0.33451858
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_83.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2100 0.4954568 1.2580943 0.63313466 0.35777897
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_85.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2150 0.6010406 1.2911286 0.850253 0.35182828
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_87.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2200 0.566816 1.2294936 0.7622432 0.3713886
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_89.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2250 0.73757285 1.7260053 1.2677958 0.2073498
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_91.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2300 0.713499 1.7459674 1.2093184 0.21767965
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_93.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2350 0.5114753 1.1079352 0.5514357 0.47151494
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_95.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2400 0.5288075 1.4306014 0.7556052 0.30200988
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_97.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2450 0.4730674 1.1141617 0.49219096 0.45394382
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_99.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2500 0.5576662 1.1563811 0.67692626 0.43840596
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_101.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2550 0.6593177 1.3081496 0.9727883 0.34584707
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_103.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2600 0.6023551 1.1499245 0.7396101 0.46510026
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_105.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2650 0.62780213 1.427706 0.9334192 0.32218498
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_107.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2700 0.58502066 1.4461188 0.8557787 0.31426254
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_109.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2750 0.5595325 1.3307585 0.7634613 0.35560384
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_111.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2800 0.62669694 1.3373933 0.8957111 0.35768276
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_113.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2850 0.5469971 1.3391693 0.75433826 0.33965582
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_115.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2900 0.6150424 1.283822 0.86751926 0.36256558
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_117.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2950 0.61033815 1.3613684 0.89173377 0.32894245
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_119.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3000 0.5596434 1.044374 0.6447016 0.47458524
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_121.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3050 0.5768482 1.1760944 0.73734456 0.4163518
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_123.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3100 0.6054735 1.2604495 0.848487 0.36246014
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_125.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3150 0.62714875 1.442194 0.9514324 0.3028651
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_127.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3200 0.63460153 1.4980466 0.9979992 0.27120394
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_129.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3250 0.724778 1.4212737 1.14946 0.3000961
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_131.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3300 0.5887525 1.4667332 0.8884319 0.28907317
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_133.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3350 0.5661483 1.2159979 0.72747093 0.40482575
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_135.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3400 0.4143651 0.8167803 0.17766121 0.65106905
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_137.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3450 0.6466131 1.4153955 0.9846428 0.3085835
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_139.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3500 0.5626149 0.7154376 0.3829961 0.7422338
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_141.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3550 0.6502814 1.3142059 0.95097625 0.34958658
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_143.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3600 0.4574083 0.72801995 0.18703853 0.7277781
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_145.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3650 0.7168095 1.7648697 1.2299283 0.20369071
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_147.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3700 0.6294524 1.4192445 0.95080733 0.30809742
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_149.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3750 0.6446339 1.2879701 0.9279437 0.36132407
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_151.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3800 0.58439744 1.4080656 0.8584752 0.31031975
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_153.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3850 0.6851857 1.3341316 1.0234013 0.34697014
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_155.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3900 0.49716556 1.0992905 0.5565628 0.43776825
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_157.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3950 0.6579844 1.4076414 0.9983166 0.31765208
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_159.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4000 0.6252314 1.5097935 0.9726653 0.27779743
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_161.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4050 0.63556206 1.4161806 0.9480926 0.32303137
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_163.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4100 0.6645844 1.6663331 1.1017721 0.22739659
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_165.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4150 0.7023803 1.5729004 1.1528645 0.2518961
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_167.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4200 0.67045534 1.4258423 1.0364223 0.30448848
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_169.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4250 0.64751685 1.4021845 0.97264 0.32239383
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_171.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4300 0.65470177 1.293393 0.9537432 0.3556603
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_173.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4350 0.6621465 1.5432239 1.0603108 0.26398224
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_175.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4400 0.6696566 1.5226464 1.0535645 0.28574854
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_177.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4450 0.71546996 1.4131346 1.126633 0.3043069
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_179.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4500 0.6521159 1.3475621 0.9757006 0.32853115
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_181.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4550 0.5455879 1.2045672 0.70129454 0.38988128
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_183.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4600 0.517169 1.2515972 0.67297447 0.36136353
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_185.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4650 0.56666803 1.1823382 0.74465847 0.38867757
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_187.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4700 0.48074436 1.1545892 0.5406821 0.4208067
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_189.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4750 0.7651496 1.6120999 1.281331 0.24896817
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_191.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4800 0.66712904 1.4295981 1.0359722 0.29828584
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_193.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4850 0.6253127 1.3802578 0.92875576 0.32186952
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_195.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4900 0.6247069 1.3367505 0.8982215 0.3511923
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_197.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4950 0.6060519 1.348506 0.87529176 0.33681214
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_199.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5000 0.57875824 1.1609719 0.74011153 0.41740492
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_201.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5050 0.68358505 1.3191907 1.0339214 0.33324867
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_203.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5100 0.6487297 1.4011174 0.99128 0.30617923
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_205.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5150 0.5991656 1.2448113 0.82840735 0.3699239
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_207.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5200 0.6299977 1.5373018 0.99064195 0.26935342
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_209.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5250 0.53404534 1.2390571 0.68381554 0.38427514
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_211.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+5300 0.60304844 1.2481142 0.82530767 0.38078922
+not training discriminator
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_213.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-193-0be964169810> in <module>
+         27 
+         28     if train\_g:
+    ---> 29         sess.run(optimizer\_g, feed\_dict=\{noise: n, keep\_prob: keep\_prob\_train, is\_training:True\})
+         30 
+         31 
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in run(self, fetches, feed\_dict, options, run\_metadata)
+        927     try:
+        928       result = self.\_run(None, fetches, feed\_dict, options\_ptr,
+    --> 929                          run\_metadata\_ptr)
+        930       if run\_metadata:
+        931         proto\_data = tf\_session.TF\_GetBuffer(run\_metadata\_ptr)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_run(self, handle, fetches, feed\_dict, options, run\_metadata)
+       1150     if final\_fetches or final\_targets or (handle and feed\_dict\_tensor):
+       1151       results = self.\_do\_run(handle, final\_targets, final\_fetches,
+    -> 1152                              feed\_dict\_tensor, options, run\_metadata)
+       1153     else:
+       1154       results = []
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_do\_run(self, handle, target\_list, fetch\_list, feed\_dict, options, run\_metadata)
+       1326     if handle is None:
+       1327       return self.\_do\_call(\_run\_fn, feeds, fetches, targets, options,
+    -> 1328                            run\_metadata)
+       1329     else:
+       1330       return self.\_do\_call(\_prun\_fn, handle, feeds, fetches)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_do\_call(self, fn, *args)
+       1332   def \_do\_call(self, fn, *args):
+       1333     try:
+    -> 1334       return fn(*args)
+       1335     except errors.OpError as e:
+       1336       message = compat.as\_text(e.message)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_run\_fn(feed\_dict, fetch\_list, target\_list, options, run\_metadata)
+       1317       self.\_extend\_graph()
+       1318       return self.\_call\_tf\_sessionrun(
+    -> 1319           options, feed\_dict, fetch\_list, target\_list, run\_metadata)
+       1320 
+       1321     def \_prun\_fn(handle, feed\_dict, fetch\_list):
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}keras2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_call\_tf\_sessionrun(self, options, feed\_dict, fetch\_list, target\_list, run\_metadata)
+       1405     return tf\_session.TF\_SessionRun\_wrapper(
+       1406         self.\_session, options, feed\_dict, fetch\_list, target\_list,
+    -> 1407         run\_metadata)
+       1408 
+       1409   def \_call\_tf\_sessionprun(self, handle, feed\_dict, fetch\_list):
+    
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
